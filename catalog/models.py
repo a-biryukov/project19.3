@@ -30,7 +30,7 @@ class Product(models.Model):
         verbose_name='Изображение', help_text='Загрузите изображение продукта'
     )
     category = models.ForeignKey(
-        Category, on_delete = models.CASCADE, verbose_name='Номер категории', help_text='Введите номер категории'
+        Category, on_delete=models.CASCADE, verbose_name='Номер категории', help_text='Введите номер категории'
     )
     price = models.IntegerField(
         verbose_name='Цена', help_text='Введите цену товара'
@@ -40,6 +40,9 @@ class Product(models.Model):
     )
     updated_at = models.DateField(
         verbose_name='Дата изменения', help_text='Введите дату последнего изменения'
+    )
+    manufactured_at = models.DateField(
+        verbose_name='Дата производства', help_text='Введите дату производства', null=True, blank=True
     )
 
     class Meta:
