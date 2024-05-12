@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, connection
 
 
 class Category(models.Model):
@@ -17,6 +17,11 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    @staticmethod
+    def truncate_table_restart_id():
+        with connection.cursor() as cursor:
+            cursor.execute(f'TRUNCATE TABLE catalog_category * RESTART IDENTITY CASCADE')
+
 
 class Product(models.Model):
     name = models.CharField(
@@ -30,7 +35,7 @@ class Product(models.Model):
         verbose_name='Изображение', help_text='Загрузите изображение продукта'
     )
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, verbose_name='Номер категории', help_text='Введите номер категории'
+        Category, on_delete=models.CASCADE, verbose_name='Название категории', help_text='Выберите категорию'
     )
     price = models.IntegerField(
         verbose_name='Цена', help_text='Введите цену товара'
