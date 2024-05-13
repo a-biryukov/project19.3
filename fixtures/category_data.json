@@ -1,0 +1,26 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Smartphones",
+      "description": "A smartphone is a cell phone that lets you do more than make phone calls and send text messages. Smartphones can browse the Internet and run software programs like a computer. Smartphones use a touch screen to allow users to interact with them. There are thousands of smartphone apps including games, personal-use, and business-use programs that all run on the phone."
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Laptops",
+      "description": "A laptop computer or notebook computer, also known as a laptop or notebook for short, is a small, portable personal computer (PC). Laptops typically have a clamshell form factor with a flat panel screen (usually 1117 in or 280430 mm in diagonal size) on the inside of the upper lid and an alphanumeric keyboard and pointing device (such as a trackpad and/or trackpoint) on the inside of the lower lid, although 2-in-1 PCs with a detachable keyboard are often marketed."
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "TVs",
+      "description": "A television is a device that can receive a signal through over-the-air transmissions, then use the information in the signal to recreate and display an image and reproduce sound. While those basics havent changed over the years, the technology used to create the display has evolved. This has allowed a dramatic narrowing of the set behind the screen, in turn, making larger screens physically and financially viabl"
+    }
+  }
+]
