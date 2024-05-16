@@ -3,6 +3,10 @@ from django.shortcuts import render
 from catalog.models import Product
 
 
+def index(request):
+    return render(request, 'categories_menu.html')
+
+
 def contacts(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -18,8 +22,7 @@ def product_detail(request, pk):
     return render(request, 'product_detail.html', context)
 
 
-def products_list(request):
-    products = Product.objects.all()
+def products_list(request, category_id):
+    products = Product.objects.filter(category_id=category_id)
     context = {'products': products}
     return render(request, 'products_list.html', context)
-
