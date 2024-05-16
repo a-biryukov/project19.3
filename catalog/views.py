@@ -1,8 +1,6 @@
 from django.shortcuts import render
 
-
-def home(request):
-    return render(request, 'home.html')
+from catalog.models import Product
 
 
 def contacts(request):
@@ -12,3 +10,9 @@ def contacts(request):
         message = request.POST.get('message')
         print(name, phone, message)
     return render(request, 'contacts.html')
+
+
+def product_detail(request, pk):
+    product = Product.objects.get(pk=pk)
+    context = {'product': product}
+    return render(request, 'product_detail.html', context)
