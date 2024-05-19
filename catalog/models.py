@@ -3,7 +3,7 @@ from django.db import models, connection
 
 class Category(models.Model):
     name = models.CharField(
-        max_length=100, verbose_name='Наименование',help_text='Введите название категории'
+        max_length=100, verbose_name='Наименование', help_text='Введите название категории'
     )
     description = models.TextField(
         verbose_name='Описание', help_text='Введите описание категории'
@@ -20,7 +20,7 @@ class Category(models.Model):
     @staticmethod
     def truncate_table_restart_id():
         with connection.cursor() as cursor:
-            cursor.execute(f'TRUNCATE TABLE catalog_category * RESTART IDENTITY CASCADE')
+            cursor.execute('TRUNCATE TABLE catalog_category * RESTART IDENTITY CASCADE')
 
 
 class Product(models.Model):
@@ -54,4 +54,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
