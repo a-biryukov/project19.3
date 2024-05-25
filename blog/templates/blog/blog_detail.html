@@ -12,6 +12,7 @@
         <img class="img-fluid" src="{{ blog.image | media_filter }}" alt="Товар">
         <br>
         <br>
+        <p class="card-text">Просмотры: {{ blog.views_count }}</p>
         <div class="btn-group">
           <a class="p-2 btn btn-outline-dark" href="{% url 'blog:blog_list' %}">Назад</a>
           <a class="p-2 btn btn-outline-dark" href="{% url 'blog:blog_update' blog.pk %}">Редактировать</a>

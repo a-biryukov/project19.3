@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, connection
 
 
 class Blog(models.Model):
@@ -8,7 +8,7 @@ class Blog(models.Model):
     created_at = models.DateField(verbose_name='Дата создания', auto_now_add=True)
 
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
-    view_count = models.IntegerField(default=0, verbose_name=' Просмотры')
+    views_count = models.IntegerField(default=0, verbose_name=' Просмотры')
     slug = models.CharField(max_length=100, verbose_name='Slug', null=True, blank=True)
 
     def __str__(self):
@@ -17,3 +17,8 @@ class Blog(models.Model):
     class Meta:
         verbose_name = 'Блог'
         verbose_name_plural = 'Блоги'
+
+    @staticmethod
+    def truncate_table_restart_id():
+        with connection.cursor() as cursor:
+            cursor.execute('TRUNCATE TABLE blog_blog * RESTART IDENTITY')
