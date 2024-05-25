@@ -15,9 +15,9 @@
           <div class="mb-1 text-body-secondary">{{ blog.created_at }}</div>
           <p class="card-text mb-auto">{{blog.text | truncatewords:20 }}</p>
           <div class="btn-group">
-            <a class="p-2 btn btn-outline-dark" href="/blog/{{ blog.pk }}/">Посмотреть</a>
-            <a class="p-2 btn btn-outline-dark" href="/update/{{ blog.pk }}/">Изменить</a>
-            <a class="p-2 btn btn-outline-dark" href="/delete/{{ blog.pk }}/">Удалить</a>
+            <a class="p-2 btn btn-outline-dark" href="/blog/view/{{ blog.pk }}/">Посмотреть</a>
+            <a class="p-2 btn btn-outline-dark" href="/blog/update/{{ blog.pk }}/">Изменить</a>
+            <a class="p-2 btn btn-outline-dark" href="/blog/delete/{{ blog.pk }}/">Удалить</a>
           </div>
         </div>
       </div>
