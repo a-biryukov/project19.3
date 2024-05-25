@@ -14,7 +14,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         # Удаление старых данных
-        Blog.objects.all().delete()
+        Blog.truncate_table_restart_id()
 
         # Списки для хранения объектов
         blog_for_create = []
