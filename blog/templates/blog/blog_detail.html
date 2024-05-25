@@ -11,8 +11,11 @@
         <p class="card-text"> {{ blog.text }}</p>
         <img class="img-fluid" src="{{ blog.image | media_filter }}" alt="Товар">
         <br>
+        <br>
         <div class="btn-group">
           <a class="p-2 btn btn-outline-dark" href="{% url 'blog:blog_list' %}">Назад</a>
+          <a class="p-2 btn btn-outline-dark" href="{% url 'blog:blog_update' blog.pk %}">Редактировать</a>
+          <a class="p-2 btn btn-outline-dark" href="{% url 'blog:blog_delete' blog.pk %}">Удалить</a>
         </div>
       </div>
     </div>
