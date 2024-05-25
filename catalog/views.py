@@ -1,28 +1,30 @@
-from django.shortcuts import render
-
-from catalog.models import Product
-
-
-def index(request):
-    return render(request, 'categories_menu.html')
+from django.views.generic import ListView, DetailView, TemplateView
+from catalog.models import Product, Category
 
 
-def contacts(request):
-    if request.method == 'POST':
+class CategoryListView(ListView):
+    model = Category
+
+
+class ProductListView(ListView):
+    model = Product
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        queryset = queryset.filter(category=self.kwargs.get("category_id"))
+        return queryset
+
+
+class ProductDetailView(DetailView):
+    model = Product
+
+
+class ContactsTemplateView(TemplateView):
+    template_name = 'catalog/contacts.html'
+
+    def post(self, request, *args, **kwargs):
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         message = request.POST.get('message')
         print(name, phone, message)
-    return render(request, 'contacts.html')
-
-
-def product_detail(request, pk):
-    product = Product.objects.get(pk=pk)
-    context = {'product': product}
-    return render(request, 'product_detail.html', context)
-
-
-def products_list(request, category_id):
-    products = Product.objects.filter(category_id=category_id)
-    context = {'products': products}
-    return render(request, 'products_list.html', context)
+        return super().get(request, *args, **kwargs)
