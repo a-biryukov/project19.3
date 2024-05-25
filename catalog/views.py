@@ -1,4 +1,3 @@
-from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView
 from catalog.models import Product, Category
 

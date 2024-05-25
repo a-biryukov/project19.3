@@ -1,0 +1,28 @@
+{% extends 'catalog/index.html' %}
+{% block content %}
+
+<br>
+<main class="container">
+  <a class="btn btn-outline-dark" href="/create/">Написать отзыв</a>
+  <br>
+  <br>
+  <div class="row mb-1">
+    {% for blog in object_list %}
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{ blog.tittle }}</h3>
+          <div class="mb-1 text-body-secondary">{{ blog.created_at }}</div>
+          <p class="card-text mb-auto">{{blog.text | truncatewords:20 }}</p>
+          <div class="btn-group">
+            <a class="p-2 btn btn-outline-dark" href="/blog/{{ object.id }}/">Посмотреть</a>
+            <a class="p-2 btn btn-outline-dark" href="/update/{{ object.id }}/">Изменить</a>
+            <a class="p-2 btn btn-outline-dark" href="/delete/{{ object.id }}/">Удалить</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}
