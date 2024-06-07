@@ -3,9 +3,24 @@
 {% block content %}
 
 <div class="py-2 container">
-  <a href="/category/1"><span class="badge text-bg-dark" style="font-size:20px">Смартфоны</span></a>
-  <a href="/category/2"><span class="badge text-bg-dark" style="font-size:20px">Ноутбуки</span></a>
-  <a href="/category/3"><span class="badge text-bg-dark" style="font-size:20px">Телевизоры</span></a>
+  <div class="row">
+    <div class="col">
+      <a href="/category/1"><span class="badge text-bg-dark" style="font-size:20px">Смартфоны</span></a>
+      <a href="/category/2"><span class="badge text-bg-dark" style="font-size:20px">Ноутбуки</span></a>
+      <a href="/category/3"><span class="badge text-bg-dark" style="font-size:20px">Телевизоры</span></a>
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+          <a class="btn btn-outline-dark" href="{% url 'catalog:create_product' %}">Добавить продукт</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="album py-5 bg-body-tertiary">
@@ -19,7 +34,9 @@
             <p style="font-size:20px" class="card-text"><b>{{ product.name }}</b></p>
             <p class="card-text"><small>{{ product.description | truncatewords:100 }}</small></p>
             <div class="btn-group">
-              <a class="p-2 btn btn-outline-dark" href="/product/{{ product.pk }}/">Посмотреть</a>
+              <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_detail' product.pk %}">Посмотреть</a>
+              <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:update_product' product.pk %}">Изменить</a>
+              <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:delete_product' product.pk %}">Удалить</a>
             </div>
           </div>
         </div>
