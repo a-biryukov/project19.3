@@ -1,5 +1,7 @@
 from django.db import models, connection
 
+NULLABLE = {"blank": True, "null": True}
+
 
 class Category(models.Model):
     name = models.CharField(
@@ -9,7 +11,7 @@ class Category(models.Model):
         verbose_name='Описание', help_text='Введите описание категории'
     )
     image = models.ImageField(
-        upload_to='category/images', blank=True, null=True,
+        upload_to='category/images', **NULLABLE,
         verbose_name='Изображение', help_text='Загрузите изображение продукта'
     )
 
@@ -35,7 +37,7 @@ class Product(models.Model):
         verbose_name='Описание', help_text='Введите описание товара'
     )
     image = models.ImageField(
-        upload_to='product/images', blank=True, null=True,
+        upload_to='product/images', **NULLABLE,
         verbose_name='Изображение', help_text='Загрузите изображение продукта'
     )
     category = models.ForeignKey(
@@ -58,3 +60,17 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, related_name="Products", on_delete=models.CASCADE, verbose_name="Наименование")
+    version_num = models.IntegerField(default=0, verbose_name='Номер версии')
+    version_name = models.CharField(max_length=150, verbose_name='Название версии')
+    current_version = models.BooleanField(default=True, verbose_name='Текущая версия')
+
+    def __str__(self):
+        return self.version_name
+
+    class Meta:
+        verbose_name = "Версия"
+        verbose_name_plural = "Версии"
