@@ -31,7 +31,6 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         for word in forbidden_words:
             if word in cleaned_data_lower:
                 raise forms.ValidationError(f"Нельзя создать товар со словом '{word}' в наименовании")
-
         return cleaned_data
 
     def clean_description(self):
@@ -45,7 +44,6 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         for word in forbidden_words:
             if word in cleaned_data_lower:
                 raise forms.ValidationError(f"Нельзя создать товар со словом '{word}' в описании")
-
         return cleaned_data
 
 
@@ -54,10 +52,3 @@ class VersionForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Version
         fields = "__all__"
-
-    def clean_current_version(self):
-        cleaned_data = self.cleaned_data.get("current_version")
-
-        return cleaned_data
-    
-
