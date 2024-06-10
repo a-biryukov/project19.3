@@ -33,6 +33,13 @@
           <div class="card-body">
             <p style="font-size:20px" class="card-text"><b>{{ product.name }}</b></p>
             <p class="card-text"><small>{{ product.description | truncatewords:100 }}</small></p>
+            <p class="card-text"><small>
+              {% if product.version_name %}
+                Версия: {{ product.version_name }} {{ product.version_num }}
+              {% else %}
+                Нет текущей версии
+              {% endif %}
+            </small></p>
             <div class="btn-group">
               <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_detail' product.pk %}">Посмотреть</a>
               <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:update_product' product.pk %}">Изменить</a>
