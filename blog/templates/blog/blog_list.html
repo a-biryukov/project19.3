@@ -3,8 +3,21 @@
 
 <br>
 <main class="container">
-  <a class="btn btn-outline-dark" href="{% url 'blog:blog_form' %}">Написать отзыв</a>
-  <br>
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+          <a class="btn btn-outline-dark" href="{% url 'blog:blog_form' %}">Написать отзыв</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <br>
   <div class="row mb-1">
     {% for blog in object_list %}
