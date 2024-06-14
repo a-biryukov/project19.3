@@ -16,7 +16,11 @@
             {{ form.as_p }}
             <button type="submit" class="btn btn-outline-dark">Войти</button>
           </div>
-          <div class="card-footer"></div>
+          <div class="card-footer">
+            <a href="">Восстановить пароль</a>
+            <br>
+            <a href="{% url 'users:register' %}">Регистрация</a>
+          </div>
         </div>
       </div>
       <div class="col-3"></div>
