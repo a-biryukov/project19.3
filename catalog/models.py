@@ -1,6 +1,6 @@
 from django.db import models, connection
 
-NULLABLE = {"blank": True, "null": True}
+from users.models import User, NULLABLE
 
 
 class Category(models.Model):
@@ -51,6 +51,10 @@ class Product(models.Model):
     )
     updated_at = models.DateField(
         verbose_name='Дата изменения', help_text='Введите дату последнего изменения', auto_now=True
+    )
+
+    owner = models.ForeignKey(
+        User, verbose_name="Владелец", help_text="Введите владельца", **NULLABLE, on_delete=models.SET_NULL
     )
 
     class Meta:
