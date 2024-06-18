@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'catalog',
         'USER': 'postgres',
-        'PASSWORD': '12345',
+        'PASSWORD': 'w1h9i9t1e',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
@@ -136,6 +136,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'users.User'
+
+NULLABLE = {"blank": True, "null": True}
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
