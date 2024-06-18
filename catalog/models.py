@@ -1,6 +1,7 @@
 from django.db import models, connection
 
-from users.models import User, NULLABLE
+from config.settings import NULLABLE
+from users.models import User
 
 
 class Category(models.Model):
