@@ -37,16 +37,12 @@ class RecoveryTemplateView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
-        try:
+        if User.objects.filter(email=email):
             user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            print(1)
-        else:
             password = user.set_password()
             user.save()
             user.email_send(subject="Восстановление пароля", message=f"Ваш новый пароль: {password}")
-        finally:
-            return super().get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
