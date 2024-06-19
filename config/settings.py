@@ -152,6 +152,11 @@ EMAIL_USE_SSL = False
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
 COUNTRIES_ONLY = {
     'RU': 'Россия',
     'AU': 'Австралия',

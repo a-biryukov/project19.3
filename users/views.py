@@ -42,7 +42,7 @@ class RecoveryTemplateView(TemplateView):
             password = user.set_password()
             user.save()
             user.email_send(subject="Восстановление пароля", message=f"Ваш новый пароль: {password}")
-        return super().get(request, *args, **kwargs)
+        return redirect(self.success_url)
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
