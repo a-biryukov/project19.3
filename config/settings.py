@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'catalog',
         'USER': 'postgres',
-        'PASSWORD': '12345',
+        'PASSWORD': 'w1h9i9t1e',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
@@ -141,11 +141,12 @@ NULLABLE = {"blank": True, "null": True}
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/login/'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "a.biryukov164@gmail.com"
-EMAIL_HOST_PASSWORD = "tjrj ssjj lubz ispb"
+EMAIL_HOST_USER = 'a.biryukov164@gmail.com'
+EMAIL_HOST_PASSWORD = 'tjrj ssjj lubz ispb'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
@@ -153,9 +154,9 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 if DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 COUNTRIES_ONLY = {
     'RU': 'Россия',

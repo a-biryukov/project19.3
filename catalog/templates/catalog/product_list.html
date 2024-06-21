@@ -44,8 +44,10 @@
             </small></p>
             <div class="btn-group">
               <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_detail' product.pk %}">Посмотреть</a>
-              {% if user.is_authenticated %}
+              {% if perms.catalog.can_edit_publication and perms.catalog.can_edit_description and perms.catalog.can_edit_category or user == product.owner %}
                 <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:update_product' product.pk %}">Изменить</a>
+              {% endif %}
+              {% if user == product.owner %}
                 <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:delete_product' product.pk %}">Удалить</a>
               {% endif %}
             </div>

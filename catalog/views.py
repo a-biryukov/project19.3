@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Category, Version
 
 
@@ -15,8 +16,11 @@ class ProductListView(ListView):
     model = Product
 
     def get_queryset(self, *args, **kwargs):
+        user = self.request.user
         queryset = super().get_queryset(*args, **kwargs)
         queryset = queryset.filter(category=self.kwargs.get("category_id"))
+        if not user.groups.filter(name="Модератор").exists() and user.is_superuser is not True:
+            queryset = queryset.filter(is_published=True)
 
         for product in queryset:
             version = Version.objects.filter(product=product)
@@ -90,6 +94,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             return super().form_valid(form)
         else:
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return ProductForm
+        elif user.has_perm('catalog.can_edit_publication') and user.has_perm('catalog.can_edit_description') and user.has_perm('catalog.can_edit_category'):
+            return ProductModeratorForm
+        raise PermissionDenied
 
 
 class ProductDeleteView(DeleteView):
