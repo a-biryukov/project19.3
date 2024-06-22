@@ -3,20 +3,20 @@
 
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for category in object_list %}
-        <div class="col">
-          <div class="card">
-            <a href="{% url 'catalog:product_list' category.pk %}">
-              <img class="img-fluid" src="/media/{{ category.image }}" alt="Товар">
-              <div class="card-body">
-                <p class="card-text text-center" style="font-size:20px"><b>{{ category.name }}</b></p>
-              </div>
-            </a>
-          </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for category in object_list %}
+            <div class="col">
+                <div class="card">
+                    <a href="{% url 'catalog:product_list' category.pk %}">
+                        <img class="img-fluid" src="/media/{{ category.image }}" alt="Товар">
+                        <div class="card-body">
+                            <p class="card-text text-center" style="font-size:20px"><b>{{ category.name }}</b></p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-      </div>
     </div>
 </div>
 

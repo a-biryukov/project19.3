@@ -1,6 +1,4 @@
 import secrets
-import string
-from random import choice
 
 from django.contrib.auth.models import AbstractUser
 from django.core.mail import send_mail
@@ -43,6 +41,6 @@ class User(AbstractUser):
         if raw_password:
             super().set_password(raw_password)
         else:
-            raw_password = "".join([choice(string.ascii_letters + string.digits) for i in range(10)])
+            raw_password = User.objects.make_random_password()
             super().set_password(raw_password)
             return raw_password

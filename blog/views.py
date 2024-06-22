@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
 
-from blog.forms import BlogForm
+from blog.forms import BlogForm, BlogModeratorForm
 from blog.models import Blog
 
 
@@ -11,8 +12,10 @@ class BlogListView(ListView):
     model = Blog
 
     def get_queryset(self, *args, **kwargs):
+        user = self.request.user
         queryset = super().get_queryset(*args, **kwargs)
-        queryset = queryset.filter(is_published=True)
+        if not user.groups.filter(name="Контент-менеджер").exists() and user.is_superuser is not True:
+            queryset = queryset.filter(is_published=True)
         return queryset
 
 
@@ -24,6 +27,8 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         if form.is_valid():
             new_blog = form.save()
+            user = self.request.user
+            new_blog.owner = user
             new_blog.slug = slugify(new_blog.tittle)
             new_blog.save()
             return super().form_valid(form)
@@ -45,6 +50,19 @@ class BlogUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])
+
+    def get_form_class(self):
+        user = self.request.user
+        if (
+              user.has_perm('blog.can_edit_publication') and
+              user.has_perm('blog.can_edit_tittle') and
+              user.has_perm('blog.can_edit_text') and
+              user.has_perm('blog.can_edit_image')
+        ):
+            return BlogModeratorForm
+        elif user == self.object.author:
+            return BlogForm
+        raise PermissionDenied
 
 
 class BlogDeleteView(DeleteView):
