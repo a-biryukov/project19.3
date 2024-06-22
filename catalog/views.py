@@ -97,10 +97,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_form_class(self):
         user = self.request.user
-        if user == self.object.owner:
-            return ProductForm
-        elif user.has_perm('catalog.can_edit_publication') and user.has_perm('catalog.can_edit_description') and user.has_perm('catalog.can_edit_category'):
+        if (
+              user.has_perm('catalog.can_edit_publication') and
+              user.has_perm('catalog.can_edit_description') and
+              user.has_perm('catalog.can_edit_category')
+        ):
             return ProductModeratorForm
+        elif user == self.object.owner:
+            return ProductForm
         raise PermissionDenied
 
 
@@ -109,6 +113,17 @@ class ProductDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('catalog:product_list', args=[self.object.category_id])
+
+
+class UserProductList(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = 'catalog/user_product_list.html'
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        user = self.request.user.id
+        queryset = queryset.filter(owner=user)
+        return queryset
 
 
 class ContactsTemplateView(TemplateView):

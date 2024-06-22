@@ -10,6 +10,6 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(http_method_names=["post", "get", "options"], template_name="users/logout.html"), name="logout"),
     path("register/", UserCreateView.as_view(), name="register"),
     path("email-confirm/<str:token>/", email_verification, name="email_confirm"),
-    path('password-recovery/', RecoveryTemplateView.as_view(), name="password_recovery"),
+    path("password-recovery/", RecoveryTemplateView.as_view(), name="password_recovery"),
     path("change/<int:pk>", UserUpdateView.as_view(), name="change")
 ]

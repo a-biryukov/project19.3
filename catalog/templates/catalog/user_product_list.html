@@ -1,0 +1,59 @@
+{% extends 'catalog/index.html' %}
+{% load my_tags %}
+{% block content %}
+
+<div class="py-2 container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                </div>
+                <div class="col">
+                </div>
+                <div class="col">
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-outline-dark" href="{% url 'catalog:create_product' %}">Добавить продукт</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for product in object_list %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{{ product.image | media_filter }}" alt="Товар">
+                    <div class="card-body">
+                        <p style="font-size:20px" class="card-text"><b>{{ product.name }}</b></p>
+                        <p class="card-text"><small>{{ product.description | truncatewords:100 }}</small></p>
+                        <p class="card-text"><small>
+                            {% if product.version_name %}
+                            Версия: {{ product.version_name }} {{ product.version_num }}
+                            {% else %}
+                            Нет текущей версии
+                            {% endif %}
+                        </small></p>
+                        <div class="btn-group">
+                            <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_detail' product.pk %}">Посмотреть</a>
+                            {% if perms.catalog.can_edit_publication and perms.catalog.can_edit_description and perms.catalog.can_edit_category or user == product.owner %}
+                            <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:update_product' product.pk %}">Изменить</a>
+                            {% endif %}
+                            {% if user == product.owner %}
+                            <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:delete_product' product.pk %}">Удалить</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
