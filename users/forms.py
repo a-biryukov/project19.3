@@ -16,7 +16,7 @@ class UserUpdateForm(StyleFormMixin, UserChangeForm):
 
     class Meta:
         model = User
-        fields = ("email", "avatar", "phone", "country",)
+        fields = ("avatar", "phone", "country",)
 
 
 class RecoveryForm(StyleFormMixin, forms.Form):
