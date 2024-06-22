@@ -3,57 +3,61 @@
 
 <br>
 <div class="container text-center">
-  <form class="row" method="post" enctype="multipart/form-data">
-    <div class="col-6">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-tittle">
-            {% if object %}
-              Изменить продукт
-            {% else %}
-              Добавить продукт
-            {% endif %}
-          </div>
-        </div>
-        <div class="card-body">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <div class="btn-group">
-            <button type="submit" class="btn btn-outline-dark">Сохранить</button>
-            <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:category_list' %}">Назад</a>
-          </div>
-        </div>
-        <div class="card-footer">
-        </div>
-      </div>
-    </div>
-    {% if user == object.owner or not object %}
-    <div class="col-6">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-tittle">
-            {% if object %}
-              Изменить версию продукта
-            {% else %}
-              Добавить версию продукта
-            {% endif %}
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        {% if object %}
+                        Изменить продукт
+                        {% else %}
+                        Добавить продукт
+                        {% endif %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-outline-dark">Сохранить</button>
+                        {% if object %}
+                        <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_list' product.category_id %}">Назад</a>
+                        {% else %}
+                        <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_list' 1 %}">Назад</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-footer">
+                </div>
             </div>
         </div>
-        <div class="card-body">
-          {{ formset.management_form }}
-          {% for form in formset.forms %}
-            {{ form.as_p }}
-            {% if not forloop.last %}
-               <hr>
-            {% endif %}
-          {% endfor %}
+        {% if user == object.owner or not object %}
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        {% if object %}
+                        Изменить версию продукта
+                        {% else %}
+                        Добавить версию продукта
+                        {% endif %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {{ formset.management_form }}
+                    {% for form in formset.forms %}
+                    {{ form.as_p }}
+                    {% if not forloop.last %}
+                    <hr>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
         </div>
-        <div class="card-footer">
-        </div>
-      </div>
-    </div>
-    {% endif %}
-  </form>
+        {% endif %}
+    </form>
 </div>
 
 {% endblock %}

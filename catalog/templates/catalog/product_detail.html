@@ -4,25 +4,28 @@
 
 <br>
 <div class="container">
-  <div class="card mb-3">
-    <div class="row g-0">
-      <img class="img-fluid" src="{{ product.image | media_filter }}" alt="Товар">
-      <div class="card-body">
-        <p style="font-size:20px" class="card-text"><b>{{ product.name }}</b></p>
-        <p class="card-text"><small> {{ product.description }}</small></p>
-        <p style="font-size:25px" class="card-text"><mark>{{ product.price }} ₽</mark></p>
-        <div class="btn-group">
-          {% if perms.catalog.can_edit_publication and perms.catalog.can_edit_description and perms.catalog.can_edit_category or user == product.owner %}
-            <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:update_product' product.pk %}">Изменить</a>
-          {% endif %}
-          {% if user == product.owner %}
-            <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:delete_product' product.pk %}">Удалить</a>
-          {% endif %}
-          <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_list' product.category_id %}">Назад</a>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <img class="img-fluid" src="{{ product.image | media_filter }}" alt="Товар">
+            <div class="card-body">
+                <p style="font-size:20px" class="card-text"><b>{{ product.name }}</b></p>
+                <p class="card-text"><small> {{ product.description }}</small></p>
+                <p style="font-size:25px" class="card-text">
+                    <mark>{{ product.price }} ₽</mark>
+                </p>
+                <div class="btn-group">
+                    {% if perms.catalog.can_edit_publication and perms.catalog.can_edit_description and perms.catalog.can_edit_category or user == product.owner %}
+                    <a class="p-2 btn btn-outline-dark"
+                       href="{% url 'catalog:update_product' product.pk %}">Изменить</a>
+                    {% endif %}
+                    {% if user == product.owner %}
+                    <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:delete_product' product.pk %}">Удалить</a>
+                    {% endif %}
+                    <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_list' product.category_id %}">Назад</a>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 {% endblock %}

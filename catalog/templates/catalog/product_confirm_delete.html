@@ -3,24 +3,25 @@
 
 <br>
 <div class="container">
-  <div class="col-12">
-    <div class="row">
-      <div class="col-6">
-        <form class="row" method="post">
-          <div class="card">
-            <div class="card-body">
-              {% csrf_token %}
-              <h4>Хотите удалить "{{ object }}"?</h4>
-              <br>
-              <div class="btn-group">
-                <button type="submit" class="btn btn-outline-dark">Удалить</button>
-                <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_list' product.category_id %}">Назад</a>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <form class="row" method="post">
+                    <div class="card">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            <h4>Хотите удалить "{{ object }}"?</h4>
+                            <br>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-outline-dark">Удалить</button>
+                                <a class="p-2 btn btn-outline-dark"
+                                   href="{% url 'catalog:product_list' product.category_id %}">Назад</a>
+                            </div>
+                        </div>
+                </form>
             </div>
-          </div>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
 
 {% endblock %}
