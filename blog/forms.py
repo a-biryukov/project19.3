@@ -8,4 +8,11 @@ class BlogForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Blog
-        exclude = ("views_count", "slug", "owner",)
+        exclude = ("views_count", "slug", "author", "is_published",)
+
+
+class BlogModeratorForm(StyleFormMixin, forms.ModelForm):
+
+    class Meta:
+        model = Blog
+        exclude = ("views_count", "slug", "author", "author",)
