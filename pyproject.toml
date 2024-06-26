@@ -15,6 +15,7 @@ psycopg2 = "^2.9.9"
 pytils = "^0.4.1"
 django-countries = "^7.6.1"
 redis = "^5.0.6"
+python-dotenv = "^1.0.1"
 
 
 [build-system]
