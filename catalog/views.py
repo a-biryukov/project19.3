@@ -6,10 +6,14 @@ from django.views.generic import ListView, DetailView, TemplateView, CreateView,
 
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Category, Version
+from catalog.services import get_categories_from_cache, add_version_info
 
 
 class CategoryListView(ListView):
     model = Category
+
+    def get_queryset(self):
+        return get_categories_from_cache()
 
 
 class ProductListView(ListView):
@@ -21,14 +25,7 @@ class ProductListView(ListView):
         queryset = queryset.filter(category=self.kwargs.get("category_id"))
         if not user.groups.filter(name="Модератор").exists() and user.is_superuser is not True:
             queryset = queryset.filter(is_published=True)
-
-        for product in queryset:
-            version = Version.objects.filter(product=product)
-            current_version = version.filter(current_version=True)
-            if current_version:
-                product.version_name = current_version.last().version_name
-                product.version_num = current_version.last().version_num
-        
+        queryset = add_version_info(queryset)
         return queryset
 
 
@@ -123,6 +120,7 @@ class UserProductList(LoginRequiredMixin, ListView):
         queryset = super().get_queryset(*args, **kwargs)
         user = self.request.user.id
         queryset = queryset.filter(owner=user)
+        queryset = add_version_info(queryset)
         return queryset
 
 
